@@ -54,6 +54,13 @@ import androidx.compose.ui.unit.sp
 import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.ui.theme.LightOrange
 
+/**
+ * Category wrapper for settings entries.
+ * 
+ * @param [title] title of the category.
+ * @param [horizontal] whether the category should be displayed horizontally.
+ * @param [content] content of the category.
+ */
 @Composable
 fun ListCategory(title: String, horizontal: Boolean = false, content: @Composable (() -> Unit)) {
     val modifier = Modifier
@@ -69,6 +76,15 @@ fun ListCategory(title: String, horizontal: Boolean = false, content: @Composabl
     }
 }
 
+/**
+ * Settings entry.
+ * 
+ * @param [id] id of the entry.
+ * @param [text] text of the entry.
+ * @param [icon] icon of the entry.
+ * @param [onClick] callback to run when the entry is clicked.
+ * @param [content] content of the entry.
+ */
 @Composable
 fun ListEntry(
     id: String,
@@ -102,6 +118,12 @@ fun ListEntry(
     }
 }
 
+/**
+ * Settings Entry with a switch.
+ * 
+ * @param [id] id of the entry.
+ * @param [text] text of the entry.
+ */
 @Composable
 fun SwitchEntry(id: String, text: String) {
     var bool by remember { mutableStateOf(false) }  // fetch initial value from storage
@@ -124,6 +146,14 @@ class ImageSwitch(default: String) {
             MaterialTheme.colorScheme.onBackground
         }
     }
+
+    /**
+     * Theme entry displaying its color scheme.
+     * 
+     * @param [id] id of the entry.
+     * @param [text] text of the entry.
+     * @param [color] color of the theme.
+     */
     @Composable
     fun ThemeEntry(
         id: String,
@@ -145,6 +175,16 @@ class ImageSwitch(default: String) {
             Text(text, color = color(id))
         }
     }
+
+    /**
+     * Mock phone entry representing a layout.
+     * 
+     * @param [id] id of the entry.
+     * @param [text] text of the entry.
+     * @param [fill] width of the entry.
+     * @param [padding] padding of the entry.
+     * @param [content] content of the entry.
+     */
     @Composable
     fun PhoneEntry(
         id: String,
@@ -170,6 +210,11 @@ class ImageSwitch(default: String) {
     }
 }
 
+/**
+ * Settings panel.
+ * 
+ * @param [pad] padding of the panel.
+ */
 @Composable
 fun Settings(pad: PaddingValues) {
     val meetings = "panel_meetings"

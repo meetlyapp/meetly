@@ -77,9 +77,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.core.net.toUri
 import coil3.compose.AsyncImage
-import coil3.compose.rememberAsyncImagePainter
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FieldValue
@@ -87,9 +85,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.storage
 import dev.lisek.meetly.R
 import dev.lisek.meetly.backend.data.entity.Category
-import dev.lisek.meetly.backend.data.entity.DataEntity
+import dev.lisek.meetly.backend.data.entity.MeetingEntity
 import dev.lisek.meetly.ui.Navigation
-import dev.lisek.meetly.ui.profile.Profile
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
@@ -100,6 +97,14 @@ import kotlin.math.min
 
 private var formatter = SimpleDateFormat("MMM d, yyyy - h:mm a", Locale.getDefault())
 
+/**
+ * Uploads an image to Firebase Storage and returns the download URL.
+ *
+ * @param [uri] URI of the image to upload.
+ * @param [id] ID of the post.
+ * @param [onSuccess] callback function to be called when the upload is successful.
+ * @param [onFailure] callback function to be called when the upload fails.
+ */
 fun uploadImageToFirebase(uri: Uri, id: String, onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
     val storageRef = Firebase.storage.reference.child("posts/$id/photo.jpeg")
     storageRef.putFile(uri)
@@ -113,16 +118,33 @@ fun uploadImageToFirebase(uri: Uri, id: String, onSuccess: (String) -> Unit, onF
         }
 }
 
+/**
+ * Enum for visibility options.
+ * 
+ * @property [text] Text representation of the visibility option.
+ */
 enum class Visibility(val text: String) {
     PUBLIC("Public"),
     FRIENDS("Friends"),
     PRIVATE("Invite only")
 }
 
+/**
+ * Converts milliseconds to a formatted date string.
+ *
+ * @param [millis] Milliseconds to convert.
+ * @return Formatted date string.
+ */
 private fun convertMillisToDate(millis: Long): String {
     return formatter.format(Date(millis))
 }
 
+/**
+ * Modal to select date and time.
+ *
+ * @param [onDateSelected] callback function to be called when the date is selected.
+ * @param [onDismiss] callback function to be called when the modal is dismissed.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DatePickerModal(
@@ -205,11 +227,17 @@ private fun DatePickerModal(
     }
 }
 
+/**
+ * Meeting panel.
+ * 
+ * @param [data] Meeting entity.
+ * @param [create] True if creating a new meeting, false if the meeting already exists.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun MeetingPanel(
-    data: DataEntity = DataEntity(),
+    data: MeetingEntity = MeetingEntity(),
     create: Boolean = true
 ) {
     val uid = Firebase.auth.currentUser!!.uid

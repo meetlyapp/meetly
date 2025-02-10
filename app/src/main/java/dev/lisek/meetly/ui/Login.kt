@@ -55,6 +55,12 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import kotlin.text.Regex
 
+/**
+ * Login screen.
+ * 
+ * @param [auth] authentication controller.
+ * @param [pad] padding values.
+ */
 @Composable
 fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
     val context = LocalContext.current

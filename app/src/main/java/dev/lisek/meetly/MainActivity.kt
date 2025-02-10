@@ -33,6 +33,9 @@ import dev.lisek.meetly.ui.showNotification
 import dev.lisek.meetly.ui.theme.MeetlyTheme
 import kotlin.random.Random
 
+/**
+ * Main activity of the app.
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,9 @@ class MainActivity : ComponentActivity() {
         setContent { Root() }
     }
 
+    /**
+     * Root composable of the app.
+     */
     @Composable
     fun Root() {
         val nav = rememberNavController()

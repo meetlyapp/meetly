@@ -14,6 +14,20 @@ import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.storage.storage
 import dev.lisek.meetly.backend.data.FetchData.db
 
+/**
+ * POJO for a user profile.
+ * 
+ * @property [uid] UID of the user.
+ * @property [name] name of the user.
+ * @property [surname] surname of the user.
+ * @property [login] login of the user.
+ * @property [bio] *about me* of the user.
+ * @property [dob] date of birth of the user.
+ * @property [location] coordinates of the user.
+ * @property [friends] list of friends of the user.
+ * @property [incomingFriends] list of incoming friend requests.
+ * @property [outgoingFriends] list of outgoing friend requests.
+ */
 class ProfileEntity(
     var uid: String = "",
     val name: String = "",
@@ -45,9 +59,20 @@ class ProfileEntity(
         get() = db.collection("users").document(uid)
 }
 
+/**
+ * Wrapper for a user profile.
+ * Used for better management of created entity.
+ * 
+ * @see ProfileEntity
+ */
 class ProfileWrapper {
     var data by mutableStateOf<ProfileEntity?>(null)
 
+    /**
+     * Fetches a user profile from the database.
+     * 
+     * @param [user] UID of the user.
+     */
     fun profileEntity(user: String) {
 //    LaunchedEffect(user) {
         FirebaseFirestore

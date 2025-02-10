@@ -25,6 +25,9 @@ import dev.lisek.meetly.MainActivity
 import dev.lisek.meetly.R
 import kotlin.random.Random
 
+/**
+ * Requests permission to send notifications.
+ */
 @Composable
 fun RequestNotificationPermission() {
     val context = LocalContext.current
@@ -44,6 +47,13 @@ fun RequestNotificationPermission() {
     }
 }
 
+/**
+ * Display a notification.
+ * 
+ * @param [context] Activity context.
+ * @param [title] Title of the notification.
+ * @param [message] Message of the notification.
+ */
 fun showNotification(context: Context, title: String, message: String) {
     val channelId = "meetly_notifications"
     val notificationId = Random.nextInt()
@@ -74,6 +84,12 @@ fun showNotification(context: Context, title: String, message: String) {
     }
 }
 
+/**
+ * Listen for incoming friend requests.
+ * 
+ * @param [context] Activity context.
+ * @param [uid] Currently logged user's ID.
+ */
 fun listenForFriendRequests(context: Context, uid: String) {
     val db = Firebase.firestore
     val docRef = db.collection("users").document(uid)
@@ -91,6 +107,12 @@ fun listenForFriendRequests(context: Context, uid: String) {
     }
 }
 
+/**
+ * Show a notification for a friend request.
+ * 
+ * @param [context] Activity context.
+ * @param [senderName] Name of the sender.
+ */
 fun showFriendRequestNotification(context: Context, senderName: String) {
     val channelId = "friend_request_channel"
 
@@ -114,6 +136,11 @@ fun showFriendRequestNotification(context: Context, senderName: String) {
     notificationManager?.notify(1001, notification)
 }
 
+/**
+ * Create a friend request notification channel.
+ * 
+ * @param [context] Activity context.
+ */
 fun createNotificationChannel(context: Context) {
     val channel = NotificationChannel(
         "friend_request_channel",

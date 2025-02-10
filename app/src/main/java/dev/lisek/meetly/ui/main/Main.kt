@@ -37,18 +37,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import dev.lisek.meetly.backend.data.FetchData
 import dev.lisek.meetly.backend.data.entity.Category
-import dev.lisek.meetly.backend.data.entity.DataEntity
+import dev.lisek.meetly.backend.data.entity.MeetingEntity
 
+/**
+ * Main screen of the app - collective meetings.
+ * 
+ * @property [pad] padding values
+ * 
+ * @see [MeetingEntry]
+ */
 @Composable
 fun Main(pad: PaddingValues = PaddingValues(0.dp)) {
     var radius by remember { mutableIntStateOf(5) }
     var radiusDropdown by remember { mutableStateOf(false) }
     var refresher by remember { mutableStateOf(false) }
-    var posts by remember { mutableStateOf(emptyList<DataEntity>()) }
+    var posts by remember { mutableStateOf(emptyList<MeetingEntity>()) }
     var location by remember { mutableStateOf("") }
     val context = LocalContext.current
 

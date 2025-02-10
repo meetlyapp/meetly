@@ -54,17 +54,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import coil3.compose.AsyncImage
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import com.google.gson.Gson
-import dev.lisek.meetly.backend.data.entity.DataEntity
-import dev.lisek.meetly.backend.data.entity.ProfileEntity
 import dev.lisek.meetly.ui.main.Main
 import dev.lisek.meetly.ui.main.MeetingPanel
 import dev.lisek.meetly.ui.profile.Profile
@@ -74,16 +69,26 @@ import dev.lisek.meetly.ui.main.MeetingEntry
 import dev.lisek.meetly.ui.theme.scriptFamily
 import kotlinx.coroutines.launch
 
-class Navigation {
-    companion object {
-        var nav: NavHostController? = null
+/**
+ * Main navigation controller.
+ * Exposed for convenience.
+ * Might change it later since it's a leak.
+ */
+object Navigation {
+    var nav: NavHostController? = null
 
-        fun navigate(route: String) {
-            nav?.navigate(route)
-        }
+    fun navigate(route: String) {
+        nav?.navigate(route)
     }
 }
 
+/**
+ * App navigation overlay.
+ * 
+ * @param [parent] navigation controller to switch between non-overlayed and overlayed screens.
+ * 
+ * @see MainActivity
+ */
 @Composable
 fun Overlay(parent: NavController) {
     val nav = rememberNavController()
@@ -230,7 +235,6 @@ fun Overlay(parent: NavController) {
                 ) { arg ->
                     Profile.FromUID(arg.arguments?.getString("uid")!!)
                 }
-//                composable("add_post") { AddPost(innerPadding) }
 //                composable("chatlist") { ChatSpace(innerPadding) }
                 composable("create") { MeetingPanel() }
             }

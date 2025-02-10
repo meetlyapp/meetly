@@ -15,26 +15,29 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import java.util.Date
 
+/**
+ * Collection of authentication methods.
+ * 
+ * @constructor Create empty Auth
+ * @param [nav] navigation controller.
+ */
 class Auth(val nav: NavController) : ComponentActivity() {
     private val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
     private val TAG = "Auth"
 
-    public override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        auth = Firebase.auth
-    }
-
-    public override fun onStart() {
-        super.onStart()
-//        val currentUser = auth.currentUser
-//        checkAuth()
-    }
-
+    /**
+     * Checks if the user is logged in.
+     * 
+     * @return true if the user is logged in, false otherwise
+     */
     fun isLogged(): Boolean {
         return auth.currentUser != null
     }
 
+    /**
+     * Checks if the user is logged in and, if yes, navigates to the main screen.
+     */
     fun checkAuth() {
         if (isLogged()) {
             nav.navigate("app") {
@@ -43,6 +46,17 @@ class Auth(val nav: NavController) : ComponentActivity() {
         }
     }
 
+    /**
+     * Creates a user account.
+     * 
+     * @param [name] user's name.
+     * @param [surname] user's surname.
+     * @param [login] user's login.
+     * @param [email] user's email.
+     * @param [password] user's password.
+     * @param [dob] user's date of birth.
+     * @param [onFailure] callback on failure.
+     */
     fun createAccount(
         name: String,
         surname: String,
@@ -57,10 +71,6 @@ class Auth(val nav: NavController) : ComponentActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
-//                    auth.currentUser!!.updateProfile(userProfileChangeRequest {
-//                        displayName = login
-//                        photoUri = Uri.parse("https://beforeigosolutions.com/wp-content/uploads/2021/12/dummy-profile-pic-300x300-1.png")
-//                    })
                     val data = hashMapOf(
                         "name" to name,
                         "surname" to surname,
@@ -80,11 +90,18 @@ class Auth(val nav: NavController) : ComponentActivity() {
 
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    onFailure
+                    onFailure()
                 }
             }
     }
 
+    /**
+     * Signs in the user.
+     * 
+     * @param [context] activity context.
+     * @param [login] user's login.
+     * @param [password] user's password.
+     */
     fun signIn(context: Context, login: String, password: String) {
         auth.signOut()
         if (Patterns.EMAIL_ADDRESS.matcher(login).matches()) {

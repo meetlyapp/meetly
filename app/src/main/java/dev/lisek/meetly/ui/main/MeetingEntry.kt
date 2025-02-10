@@ -36,18 +36,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import com.google.gson.Gson
 import dev.lisek.meetly.R
-import dev.lisek.meetly.backend.data.entity.DataEntity
-import dev.lisek.meetly.backend.data.entity.DataWrapper
+import dev.lisek.meetly.backend.data.entity.MeetingEntity
+import dev.lisek.meetly.backend.data.entity.MeetingWrapper
 import dev.lisek.meetly.ui.Navigation
-import dev.lisek.meetly.ui.profile.Profile
 import java.text.SimpleDateFormat
 
+/**
+ * Small, *thumbnail* representation of a meeting.
+ */
 object MeetingEntry {
+
+    /**
+     * Get a meeting entity by its ID.
+     * 
+     * @param [id] ID of the meeting.
+     */
     @Composable
-    fun getEntity(id: String): DataEntity? {
-        val dw = remember { DataWrapper() }
+    fun getEntity(id: String): MeetingEntity? {
+        val dw = remember { MeetingWrapper() }
 
         LaunchedEffect(id) {
             dw.dataEntity(id)
@@ -56,13 +63,23 @@ object MeetingEntry {
         return dw.data
     }
 
+    /**
+     * Get a meeting thumbnail by its ID.
+     * 
+     * @param [id] ID of the meeting.
+     */
     @Composable
     fun FromID(id: String) {
         FromEntity(getEntity(id))
     }
 
+    /**
+     * Get a meeting thumbnail from a meeting entity.
+     * 
+     * @param [data] Meeting entity.
+     */
     @Composable
-    fun FromEntity(data: DataEntity?) {
+    fun FromEntity(data: MeetingEntity?) {
         data?.let {
             Column(
                 Modifier

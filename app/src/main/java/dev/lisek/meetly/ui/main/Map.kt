@@ -65,6 +65,13 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import java.io.IOException
 import java.util.Locale
 
+/**
+ * Find place predictions based on user's input.
+ * 
+ * @param [placesClient] Google Places API client.
+ * @param [query] User's input.
+ * @param [callback] Callback to return the list of predictions.
+ */
 fun getPlacePredictions(
     placesClient: PlacesClient,
     query: String,
@@ -84,6 +91,13 @@ fun getPlacePredictions(
         }
 }
 
+/**
+ * Fetch place coordinates based on place ID.
+ * 
+ * @param [placesClient] Google Places API client.
+ * @param [placeId] Place ID.
+ * @param [callback] Callback to return the place coordinates.
+ */
 fun getPlaceDetails(
     placesClient: PlacesClient,
     placeId: String,
@@ -103,6 +117,11 @@ fun getPlaceDetails(
         }
 }
 
+/**
+ * Text field displaying place suggestions.
+ * 
+ * @param [onPlaceSelected] Callback to pass the selected place coordinates.
+ */
 @Composable
 fun PlacesAutoCompleteTextField(onPlaceSelected: (LatLng) -> Unit) {
     val context = LocalContext.current
@@ -151,6 +170,12 @@ fun PlacesAutoCompleteTextField(onPlaceSelected: (LatLng) -> Unit) {
     }
 }
 
+/**
+ * Get user's current location.
+ * 
+ * @param [context] activity context.
+ * @param [onLocationRetrieved] Callback to return the location.
+ */
 fun getCurrentLocation(
     context: Context,
     onLocationRetrieved: (LatLng?) -> Unit
@@ -172,6 +197,12 @@ fun getCurrentLocation(
         }
 }
 
+/**
+ * Get user's address from coordinates.
+ * 
+ * @param [context] activity context.
+ * @param [latLng] user coordinates.
+ */
 fun getAddressFromLatLng(context: Context, latLng: LatLng): String {
     val geocoder = Geocoder(context, Locale.getDefault())
     return try {
@@ -182,6 +213,11 @@ fun getAddressFromLatLng(context: Context, latLng: LatLng): String {
     }
 }
 
+/**
+ * Map modal.
+ * 
+ * @param [onConfirm] Callback to pass the selected location.
+ */
 @Composable
 fun Map(onConfirm: (LatLng, String) -> Unit) {
     val context = LocalContext.current
