@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">meetly</string>
+    <string name="facebook_application_id" translatable="false">1969511706880846</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1969511706880846</string>
+</resources>
