@@ -37,7 +37,7 @@ object FetchData {
                 .document(Firebase.auth.uid!!)
                 .get().await()
             return (query.get("location")!! as Map<String, Any>)
-                .mapValues { it.value as Double }
+                .mapValues { (it.value as Number).toDouble() }
         }
     }
 

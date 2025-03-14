@@ -14,7 +14,7 @@ import dev.lisek.meetly.ui.profile.Profile
 interface Locatable {
     val location: Map<String, Any>
     val place: Map<String, Double>
-        get() = location.mapValues { it.value as Double }
+        get() = location.mapValues { (it.value as Number).toDouble() }
     val distance: Double
         @Composable get() = Geolocation.distance(Profile.local.place, place)
 }
