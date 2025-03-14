@@ -66,7 +66,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
-    implementation(libs.geofire.android)
+    implementation(libs.firebase.database)
     implementation(libs.play.services.auth)
     implementation(libs.maps.compose)
     implementation(libs.places)
