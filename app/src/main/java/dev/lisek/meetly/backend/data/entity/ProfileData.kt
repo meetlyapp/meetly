@@ -10,7 +10,6 @@ import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.storage.storage
 import dev.lisek.meetly.backend.data.FetchData.db
 
@@ -35,7 +34,7 @@ class ProfileEntity(
     val login: String = "",
     val bio: String = "",
     val dob: Timestamp = Timestamp.now(),
-    override val location: Map<String, Double> = mapOf("latitude" to .0, "longitude" to .0),
+    override val location: Map<String, Any> = mapOf("latitude" to .0, "longitude" to .0),
     val friends: List<String> = emptyList(),
     val incomingFriends: List<String> = emptyList(),
     val outgoingFriends: List<String> = emptyList()
