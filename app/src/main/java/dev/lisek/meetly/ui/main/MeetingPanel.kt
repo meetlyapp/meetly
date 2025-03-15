@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -233,7 +234,6 @@ private fun DatePickerModal(
  * @param [data] Meeting entity.
  * @param [create] True if creating a new meeting, false if the meeting already exists.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun MeetingPanel(
@@ -267,8 +267,9 @@ fun MeetingPanel(
     var edit by remember { mutableStateOf(false) }
     var delete by remember { mutableStateOf(false) }
 
-    Column(
-        Modifier.verticalScroll(ScrollState(0))
+    Column(Modifier
+        .verticalScroll(ScrollState(0))
+        .imePadding()
     ) {
         Box {
             AsyncImage(

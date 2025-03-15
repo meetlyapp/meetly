@@ -1,10 +1,7 @@
 package dev.lisek.meetly
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -26,9 +23,6 @@ import dev.lisek.meetly.ui.Login
 import dev.lisek.meetly.ui.Overlay
 import dev.lisek.meetly.ui.RequestNotificationPermission
 import dev.lisek.meetly.ui.Settings
-import dev.lisek.meetly.ui.createNotificationChannel
-import dev.lisek.meetly.ui.listenForFriendRequests
-import dev.lisek.meetly.ui.main.Map
 import dev.lisek.meetly.ui.showNotification
 import dev.lisek.meetly.ui.theme.MeetlyTheme
 import kotlin.random.Random
@@ -39,6 +33,9 @@ import kotlin.random.Random
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+        )
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, getString(R.string.google_api_key))
         }
