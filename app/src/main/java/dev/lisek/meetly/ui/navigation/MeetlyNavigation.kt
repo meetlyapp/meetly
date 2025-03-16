@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dev.lisek.meetly.ui.PasswordReset
+import dev.lisek.meetly.ui.PasswordReset
 
 @Composable
 fun MeetlyNavigation(
