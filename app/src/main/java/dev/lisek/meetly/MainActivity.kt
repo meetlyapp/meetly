@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.google.android.libraries.places.api.Places
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -23,6 +24,7 @@ import dev.lisek.meetly.ui.Login
 import dev.lisek.meetly.ui.Overlay
 import dev.lisek.meetly.ui.RequestNotificationPermission
 import dev.lisek.meetly.ui.Settings
+import dev.lisek.meetly.ui.chat.Chat
 import dev.lisek.meetly.ui.showNotification
 import dev.lisek.meetly.ui.theme.MeetlyTheme
 import kotlin.random.Random
@@ -82,14 +84,12 @@ class MainActivity : ComponentActivity() {
                     composable("login") { Login(auth, innerPadding) }
                     composable("app") { Overlay(nav) }
                     composable("settings") { Settings(innerPadding) }
-//                    composable(
-//                        "chat/{id}",
-//                        listOf(navArgument("id") {
-//                            type = NavType.StringType
-//                        })
-//                    ) { arg ->
-//                        Chat.FromID(arg.arguments?.getString("id")!!)
-//                    }
+                    composable(
+                        "chat/{id}",
+                        listOf(navArgument("id") {})
+                    ) { arg ->
+                        Chat(arg.arguments?.getString("id")!!)
+                    }
                 }
             }
         }

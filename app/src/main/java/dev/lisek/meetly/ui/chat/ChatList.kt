@@ -33,7 +33,7 @@ import dev.lisek.meetly.ui.profile.Profile
 
 @Composable
 fun Messages(nav: NavController, pad: PaddingValues) {
-    var chats by remember { mutableStateOf(emptyList<ChatEntity?>()) }
+    var chats by remember { mutableStateOf(emptyList<Pair<String, ChatEntity?>>()) }
 
     LaunchedEffect(null) {
         chats = fetchMessageList()
@@ -47,7 +47,7 @@ fun Messages(nav: NavController, pad: PaddingValues) {
         }
         LazyColumn {
             items(chats) {
-                ChatEntry(it)
+                ChatEntry(nav, it.first, it.second)
             }
         }
     }

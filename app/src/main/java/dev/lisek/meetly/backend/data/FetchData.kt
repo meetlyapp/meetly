@@ -68,7 +68,7 @@ object FetchData {
         return meets
     }
 
-    suspend fun fetchMessageList(): List<ChatEntity?> = db.collection("messages")
+    suspend fun fetchMessageList(): List<Pair<String, ChatEntity?>> = db.collection("messages")
         .whereArrayContains("participants", Firebase.auth.uid!!)
-        .get().await().documents.map { it.toObject(ChatEntity::class.java) }
+        .get().await().documents.map { it.id to it.toObject(ChatEntity::class.java) }
 }

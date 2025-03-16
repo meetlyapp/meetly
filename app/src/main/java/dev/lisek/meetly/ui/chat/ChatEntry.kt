@@ -44,12 +44,12 @@ fun date(date: Timestamp): String {
 }
 
 @Composable
-fun ChatEntry(content: ChatEntity?) {
+fun ChatEntry(nav: NavController, id: String, content: ChatEntity?) {
     val messageDate = date(content?.lastMessage["date"] as Timestamp)
 
     Row(Modifier
         .fillMaxWidth()
-        .clickable {}
+        .clickable { nav.navigate("chat/${id}") }
         .padding(16.dp, 8.dp)
     ) {
         AsyncImage(
