@@ -66,6 +66,7 @@ import dev.lisek.meetly.ui.profile.Profile
 import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.R
 import dev.lisek.meetly.ui.main.MeetingEntry
+import dev.lisek.meetly.ui.chat.Messages
 import dev.lisek.meetly.ui.theme.scriptFamily
 import kotlinx.coroutines.launch
 
@@ -164,7 +165,7 @@ fun Overlay(parent: NavController) {
                         )
                         HorizontalDivider(Modifier.padding(8.dp))
                         ListCategory("People") {
-                            ListEntry("", "Chat", Icons.Default.Email)
+                            ListEntry("", "Chat", Icons.Default.Email, { nav.navigate("chat") })
                             ListEntry("", "Blocklist", Icons.Default.Clear)
                         }
                         ListCategory("Meetings") {
@@ -181,7 +182,8 @@ fun Overlay(parent: NavController) {
                                 Text("ver. 0.0.1",
                                     fontSize = 12.sp,
                                     color = MaterialTheme.colorScheme.onBackground.copy(0.6f)
-                                ) }
+                                )
+                            }
                         }
                     }
                     pad
@@ -237,6 +239,7 @@ fun Overlay(parent: NavController) {
                 }
 //                composable("chatlist") { ChatSpace(innerPadding) }
                 composable("create") { MeetingPanel() }
+                composable("chat") { Messages(parent, innerPadding) }
             }
             IconButton(onClick = {
                 scope.launch {

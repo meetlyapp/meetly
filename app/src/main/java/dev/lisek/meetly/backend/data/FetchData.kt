@@ -5,6 +5,7 @@ import android.content.Context
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import dev.lisek.meetly.backend.data.entity.ChatEntity
 import dev.lisek.meetly.backend.data.entity.MeetingEntity
 import dev.lisek.meetly.ui.main.getCurrentLocation
 import kotlinx.coroutines.tasks.await
@@ -66,4 +67,8 @@ object FetchData {
         }
         return meets
     }
+
+    suspend fun fetchMessageList(): List<ChatEntity?> = db.collection("messages")
+        .whereArrayContains("participants", Firebase.auth.uid!!)
+        .get().await().documents.map { it.toObject(ChatEntity::class.java) }
 }
