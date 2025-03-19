@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui
+package dev.lisek.meetly.ui.login
 
 import android.util.Patterns
 import android.widget.Toast
@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.lisek.meetly.R
-import dev.lisek.meetly.backend.Auth
+import dev.lisek.meetly.backend.auth.Auth
 import dev.lisek.meetly.backend.correctDate
 import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.ui.theme.scriptFamily
@@ -59,7 +59,7 @@ import kotlin.text.Regex
  * @param [pad] padding values.
  */
 @Composable
-fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
+fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: NavController) {
     val context = LocalContext.current
 
     var register by remember { mutableStateOf(false) }
@@ -326,7 +326,8 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
             Text("Forgot password?",
                 textDecoration = TextDecoration.Underline,
                 modifier = Modifier.clickable {
-                    /* TODO("Password reset") */
+                    navController.navigate("resetScreen")
+
                 }
             )
         }
