@@ -6,11 +6,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import dev.lisek.meetly.backend.forgotPassword.PasswordResetModel
 
 @Composable
 fun ResetPasswordScreen( modifier: Modifier = Modifier, navController: NavHostController) {
     var email by remember { mutableStateOf(TextFieldValue("")) }
     var isSuccess by remember { mutableStateOf<Boolean?>(null) }
+    val sender  = PasswordResetModel()
 
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
@@ -29,7 +31,13 @@ fun ResetPasswordScreen( modifier: Modifier = Modifier, navController: NavHostCo
 
         Button(
             onClick = {
-                TODO("Implement password reset")
+                if (email.text.isNotEmpty()) {
+                    sender.sendResetLink(email.text) {
+                        if (it == "Success") {
+                            isSuccess = true
+                        }
+                    }
+                }
             },
             modifier = Modifier.fillMaxWidth(),
             enabled = email.text.isNotEmpty()

@@ -327,7 +327,6 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
                 textDecoration = TextDecoration.Underline,
                 modifier = Modifier.clickable {
                     navController.navigate("resetScreen")
-
                 }
             )
         }
