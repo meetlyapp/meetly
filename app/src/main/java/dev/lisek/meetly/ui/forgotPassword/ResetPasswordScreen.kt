@@ -1,3 +1,5 @@
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -9,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import dev.lisek.meetly.backend.forgotPassword.PasswordResetModel
-
 @Composable
 fun ResetPasswordScreen(modifier: Modifier = Modifier, navController: NavHostController) {
     var email by remember { mutableStateOf(TextFieldValue("")) }
@@ -37,11 +38,11 @@ fun ResetPasswordScreen(modifier: Modifier = Modifier, navController: NavHostCon
         Button(
             onClick = {
                 if (email.text.isNotEmpty()) {
-                    sender.sendResetLink(email.text) {
-                        if (it == "Success") {
-                            isSuccess = true
-                        } else {
-                            isSuccess = false
+                    sender.sendResetLink(email.text) { result ->
+                        isSuccess = result == "Success"
+                        Handler(Looper.getMainLooper()).post {
+                            val message = if (isSuccess == true) "Reset link sent!" else "Failed to send reset link!"
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -51,13 +52,5 @@ fun ResetPasswordScreen(modifier: Modifier = Modifier, navController: NavHostCon
         ) {
             Text("Send Reset Link")
         }
-        LaunchedEffect(isSuccess) {
-            if (isSuccess == true) {
-                Toast.makeText(context, "Reset link sent!", Toast.LENGTH_LONG).show()
-            } else if (isSuccess == false) {
-                Toast.makeText(context, "Failed to send reset link!", Toast.LENGTH_LONG).show()
-            }
-        }
-
     }
 }
