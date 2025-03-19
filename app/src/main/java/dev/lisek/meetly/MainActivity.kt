@@ -60,7 +60,10 @@ class MainActivity : ComponentActivity() {
 
         MeetlyTheme {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                MeetlyNavigation()
+                MeetlyNavigation(modifier = Modifier,
+                    nav,
+                    auth,
+                    innerPadding)
 
             }
         }
