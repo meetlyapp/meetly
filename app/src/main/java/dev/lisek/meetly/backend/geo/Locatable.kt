@@ -1,7 +1,6 @@
-package dev.lisek.meetly.backend.data.entity
+package dev.lisek.meetly.backend.geo
 
 import androidx.compose.runtime.Composable
-import dev.lisek.meetly.backend.Geolocation
 import dev.lisek.meetly.ui.profile.Profile
 
 /**

@@ -1,4 +1,4 @@
-package dev.lisek.meetly.backend.forgotPassword
+package dev.lisek.meetly.backend.auth.forgotPassword
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

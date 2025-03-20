@@ -10,7 +10,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import dev.lisek.meetly.backend.forgotPassword.PasswordResetModel
+import dev.lisek.meetly.backend.auth.forgotPassword.PasswordResetModel
 @Composable
 fun ResetPasswordScreen(modifier: Modifier = Modifier, navController: NavHostController) {
     var email by remember { mutableStateOf(TextFieldValue("")) }

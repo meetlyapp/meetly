@@ -84,8 +84,8 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.storage
 import dev.lisek.meetly.R
-import dev.lisek.meetly.backend.data.entity.Category
-import dev.lisek.meetly.backend.data.entity.MeetingEntity
+import dev.lisek.meetly.backend.category.Category
+import dev.lisek.meetly.backend.meeting.MeetingEntity
 import dev.lisek.meetly.ui.Navigation
 import java.text.SimpleDateFormat
 import java.time.Instant
