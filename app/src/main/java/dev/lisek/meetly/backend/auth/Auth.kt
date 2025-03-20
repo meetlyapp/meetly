@@ -1,8 +1,6 @@
-package dev.lisek.meetly.backend
+package dev.lisek.meetly.backend.auth
 
 import android.content.Context
-import android.net.Uri
-import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
@@ -10,9 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.navigation.NavController
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
 import java.util.Date
 
 /**

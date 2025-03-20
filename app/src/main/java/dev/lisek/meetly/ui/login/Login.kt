@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui
+package dev.lisek.meetly.ui.login
 
 import android.util.Patterns
 import android.widget.Toast
@@ -35,7 +35,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -44,15 +43,13 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import dev.lisek.meetly.R
-import dev.lisek.meetly.backend.Auth
+import dev.lisek.meetly.backend.auth.Auth
 import dev.lisek.meetly.backend.correctDate
 import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.ui.theme.scriptFamily
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
 import kotlin.text.Regex
 
 /**
@@ -62,7 +59,7 @@ import kotlin.text.Regex
  * @param [pad] padding values.
  */
 @Composable
-fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
+fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: NavController) {
     val context = LocalContext.current
 
     var register by remember { mutableStateOf(false) }
@@ -87,7 +84,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
     var emailTaken by remember { mutableStateOf(false) }
     var loginTaken by remember { mutableStateOf(false) }
 
-    fun checkRegistrationForm(
+    fun registrationForm(
         all: Boolean = false,
         checkName: Boolean = false,
         checkSurname: Boolean = false,
@@ -167,7 +164,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
                     email, label = { Text("E-mail") },
                     onValueChange = {
                         email = it
-                        checkRegistrationForm(checkEmail = true)
+                        registrationForm(checkEmail = true)
                         auth.db.collection("users")
                             .whereEqualTo("email", email)
                             .get()
@@ -190,7 +187,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
             login, label = { Text("Username") },
             onValueChange = {
                 login = it
-                checkRegistrationForm(checkLogin = true)
+                registrationForm(checkLogin = true)
                 auth.db.collection("users")
                     .whereEqualTo("login", login)
                     .get()
@@ -215,7 +212,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
             password, label = { Text("Password") },
             onValueChange = {
                 password = it
-                checkRegistrationForm(checkPassword = true)
+                registrationForm(checkPassword = true)
             },
             shape = RoundedCornerShape(50),
             isError = register && !passwordValid,
@@ -257,7 +254,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
         }
         Button(enabled = !register || canRegister, onClick = {
             if (register) {
-                if (checkRegistrationForm(true)) {
+                if (registrationForm(all = true)) {
                     auth.createAccount(
                         name, surname, login, email, password,
                         SimpleDateFormat("dd/MM/yyyy").parse(dob)!!
@@ -289,7 +286,9 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
         }) { Text("Sign " + if (register) "up" else "in") }
         if (!register) {
             Text("or...")
-            Button(onClick = {}) {
+            Button(onClick = {
+                /* TODO("Google login") */
+            }) {
                 Image(
                     painter = painterResource(id = R.drawable.google),
                     contentDescription = "Google login",
@@ -298,7 +297,9 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
                 Spacer(Modifier.size(8.dp))
                 Text("Login with Google")
             }
-            Button(onClick = {}) {
+            Button(onClick = {
+                /* TODO("Facebook login") */
+            }) {
                 Image(
                     painter = painterResource(id = R.drawable.facebook),
                     contentDescription = "Facebook login",
@@ -315,7 +316,20 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp)) {
                 modifier = Modifier.clickable {
                     register = !register
                 }
+
+            )
+            Spacer(Modifier.height(8.dp))
+
+
+        }
+        Row (modifier = Modifier.padding(all = 16.dp))  {
+            Text("Forgot password?",
+                textDecoration = TextDecoration.Underline,
+                modifier = Modifier.clickable {
+                    navController.navigate("resetScreen")
+                }
             )
         }
+
     }
 }
