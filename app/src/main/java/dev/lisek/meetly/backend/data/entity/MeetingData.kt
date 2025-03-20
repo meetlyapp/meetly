@@ -38,7 +38,7 @@ class MeetingEntity(
     val creator: String? = null,
     val description: String? = null,
     val date: Date = Date(),
-    override val location: Map<String, Double> = mapOf("latitude" to .0, "longitude" to .0),
+    override val location: Map<String, Any> = mapOf("latitude" to .0, "longitude" to .0),
     val address: String = "Unknown location",
     val categories: List<String> = emptyList(),
     val participants: List<String> = emptyList(),

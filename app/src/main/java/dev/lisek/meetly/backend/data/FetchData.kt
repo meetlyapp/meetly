@@ -36,7 +36,8 @@ object FetchData {
             val query = db.collection("users")
                 .document(Firebase.auth.uid!!)
                 .get().await()
-            return query.get("location")!! as Map<String, Double>
+            return (query.get("location")!! as Map<String, Any>)
+                .mapValues { (it.value as Number).toDouble() }
         }
     }
 

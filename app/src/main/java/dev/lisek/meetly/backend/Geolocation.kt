@@ -41,8 +41,8 @@ object Geolocation {
 
             if (!permission) {
                 onLocationRetrieved(LatLng(
-                    Profile.local.location["latitude"]!!,
-                    Profile.local.location["longitude"]!!
+                    Profile.local.place["latitude"]!!,
+                    Profile.local.place["longitude"]!!
                 ))
             }
             fusedLocationClient.lastLocation
@@ -54,8 +54,8 @@ object Geolocation {
                 }
         } else {
             onLocationRetrieved(LatLng(
-                Profile.local.location["latitude"]!!,
-                Profile.local.location["longitude"]!!
+                Profile.local.place["latitude"]!!,
+                Profile.local.place["longitude"]!!
             ))
         }
     }
