@@ -10,7 +10,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.storage
 import dev.lisek.meetly.backend.category.Category
-import dev.lisek.meetly.backend.data.entity.ProfileEntity
+import dev.lisek.meetly.backend.profile.ProfileEntity
 import dev.lisek.meetly.backend.geo.Locatable
 import dev.lisek.meetly.ui.main.Visibility
 import dev.lisek.meetly.ui.profile.Profile
