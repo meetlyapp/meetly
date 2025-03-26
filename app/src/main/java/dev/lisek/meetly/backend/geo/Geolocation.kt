@@ -1,4 +1,4 @@
-package dev.lisek.meetly.backend
+package dev.lisek.meetly.backend.geo
 
 import android.Manifest
 import android.content.pm.PackageManager

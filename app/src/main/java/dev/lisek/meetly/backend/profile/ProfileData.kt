@@ -1,4 +1,4 @@
-package dev.lisek.meetly.backend.data.entity
+package dev.lisek.meetly.backend.profile
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,6 +12,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.storage
 import dev.lisek.meetly.backend.data.FetchData.db
+import dev.lisek.meetly.backend.geo.Locatable
 
 /**
  * POJO for a user profile.

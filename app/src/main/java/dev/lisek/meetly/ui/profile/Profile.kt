@@ -56,9 +56,8 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.storage.storage
 import dev.lisek.meetly.R
 import dev.lisek.meetly.backend.data.FetchData.db
-import dev.lisek.meetly.backend.data.entity.ProfileEntity
-import dev.lisek.meetly.backend.data.entity.ProfileWrapper
-import dev.lisek.meetly.ui.Navigation
+import dev.lisek.meetly.backend.profile.ProfileEntity
+import dev.lisek.meetly.backend.profile.ProfileWrapper
 
 object Profile {
 
