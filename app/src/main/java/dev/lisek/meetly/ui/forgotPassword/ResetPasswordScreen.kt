@@ -11,6 +11,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import dev.lisek.meetly.backend.auth.forgotPassword.PasswordResetModel
+/**
+ * Composable function that displays the Reset Password screen.
+ *
+ * @param modifier Modifier to be applied to the layout.
+ * @param navController Navigation controller to handle navigation actions.
+ */
 @Composable
 fun ResetPasswordScreen(modifier: Modifier = Modifier, navController: NavHostController) {
     var email by remember { mutableStateOf(TextFieldValue("")) }
