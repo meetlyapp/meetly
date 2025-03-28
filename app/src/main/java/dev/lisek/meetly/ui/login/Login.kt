@@ -47,6 +47,7 @@ import androidx.navigation.NavController
 import dev.lisek.meetly.R
 import dev.lisek.meetly.backend.auth.Auth
 import dev.lisek.meetly.backend.correctDate
+import dev.lisek.meetly.ui.auth.googleAuth.GoogleAuth
 import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.ui.theme.scriptFamily
 import java.text.SimpleDateFormat
@@ -286,17 +287,8 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
         }) { Text("Sign " + if (register) "up" else "in") }
         if (!register) {
             Text("or...")
-            Button(onClick = {
-                /* TODO("Google login") */
-            }) {
-                Image(
-                    painter = painterResource(id = R.drawable.google),
-                    contentDescription = "Google login",
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(Modifier.size(8.dp))
-                Text("Login with Google")
-            }
+            GoogleAuth(context)
+            Spacer(Modifier.height(8.dp))
             Button(onClick = {
                 /* TODO("Facebook login") */
             }) {

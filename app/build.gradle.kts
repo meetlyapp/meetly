@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.facebook.android.sdk)
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
+    implementation (libs.googleid.vlatestversion)
     implementation(libs.googleid)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
