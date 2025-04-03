@@ -11,18 +11,23 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import dev.lisek.meetly.R
 import dev.lisek.meetly.backend.auth.google.GoogleSignInClient
 import kotlinx.coroutines.launch
 
 @Composable
-fun GoogleAuth(context: Context) {
-    val googleSignInClient = GoogleSignInClient(context)
+fun GoogleAuth(context: Context, isSignedIn: Boolean, navController: NavController) {
+    val googleSignInClient = GoogleSignInClient(
+        context,
+        isSignedIn
+    )
     val coroutineScope = rememberCoroutineScope()
 
     Button(onClick = {
         coroutineScope.launch {
             googleSignInClient.signIn()
+            navController.navigate("homeScreen")
         }
     }) {
         Image(

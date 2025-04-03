@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui.main
+package dev.lisek.meetly.ui.homescreen
 
 import android.content.Context
 import android.location.Geocoder
@@ -44,8 +44,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition

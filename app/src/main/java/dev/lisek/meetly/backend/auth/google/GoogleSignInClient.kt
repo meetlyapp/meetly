@@ -10,13 +10,13 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import dev.lisek.meetly.R
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.cancellation.CancellationException
 
 
 class GoogleSignInClient(
     private val context: Context,
+    private var signInStatus: Boolean
 ) {
     private val tag = "GoogleAuthClient: "
 
@@ -26,6 +26,7 @@ class GoogleSignInClient(
     fun isSignedIn(): Boolean {
         if (firebaseAuth.currentUser != null) {
             println(tag+ "User is signed in")
+            signInStatus = true
             return true
         }
         return false
