@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.model.LatLng
 import dev.lisek.meetly.backend.data.FetchData
 import dev.lisek.meetly.backend.category.Category
+import dev.lisek.meetly.backend.geo.Geolocation.UserLocation
 import dev.lisek.meetly.backend.meeting.MeetingEntity
 
 /**
@@ -58,7 +59,7 @@ fun HomeScreen(pad: PaddingValues = PaddingValues(0.dp)) {
     var location by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    getCurrentLocation(context) {
+    UserLocation() {
         location = getAddressFromLatLng(context, it ?: LatLng(.0, .0)).split(",")[0]
     }
 

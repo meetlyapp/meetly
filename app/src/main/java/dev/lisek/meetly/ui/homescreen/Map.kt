@@ -60,6 +60,7 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberMarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import dev.lisek.meetly.backend.geo.Geolocation.getPermission
 import java.io.IOException
 import java.util.Locale
 
@@ -242,27 +243,7 @@ fun Map(onConfirm: (LatLng, String) -> Unit) {
         properties = MapProperties(true, false, permission)
     }
 
-    val locationPermissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        permission = isGranted
-        if (isGranted) {
-            getCurrentLocation(context) { updateLocation(it) }
-        }
-    }
-
-    // Check permission status
-    LaunchedEffect(Unit) {
-        permission = ContextCompat.checkSelfPermission(
-            context, Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (permission) {
-            getCurrentLocation(context) { updateLocation(it) }
-        } else {
-            locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
-    }
+    permission = getPermission { updateLocation(it) }
 
     Box(Modifier
         .fillMaxHeight(.8f)
