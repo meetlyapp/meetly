@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui.main
+package dev.lisek.meetly.ui.homescreen
 
 import android.annotation.SuppressLint
 import android.net.Uri

@@ -47,6 +47,7 @@ import androidx.navigation.NavController
 import dev.lisek.meetly.R
 import dev.lisek.meetly.backend.auth.Auth
 import dev.lisek.meetly.backend.correctDate
+import dev.lisek.meetly.ui.auth.googleAuth.GoogleAuth
 import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.ui.theme.scriptFamily
 import java.text.SimpleDateFormat
@@ -62,7 +63,7 @@ import kotlin.text.Regex
 fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: NavController) {
     val context = LocalContext.current
 
-    var register by remember { mutableStateOf(false) }
+    var isSignedIn by remember { mutableStateOf(false) }
 
     var hidePassword by remember { mutableStateOf(true) }
     var canRegister by remember { mutableStateOf(false) }
@@ -123,7 +124,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
         Text("find friends. make memories.", fontFamily = scriptFamily)
         Spacer(Modifier.height(8.dp))
 
-        if (register) {
+        if (isSignedIn) {
             Column {
                 OutlinedTextField(
                     name, label = { Text("First name") },
@@ -196,9 +197,9 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
                     }
             },
             shape = RoundedCornerShape(50),
-            isError = register && (!loginValid || loginTaken),
+            isError = isSignedIn && (!loginValid || loginTaken),
             trailingIcon = {
-                val icon = if (register) {
+                val icon = if (isSignedIn) {
                     Icons.Rounded.Warning
                 } else {
                     Icons.Rounded.Check
@@ -215,7 +216,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
                 registrationForm(checkPassword = true)
             },
             shape = RoundedCornerShape(50),
-            isError = register && !passwordValid,
+            isError = isSignedIn && !passwordValid,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = if (hidePassword) {
                 PasswordVisualTransformation()
@@ -237,7 +238,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
         )
         Spacer(Modifier.height(8.dp))
 
-        if (register) {
+        if (isSignedIn) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.offset(x = (-8).dp)
@@ -252,8 +253,8 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
                 )
             }
         }
-        Button(enabled = !register || canRegister, onClick = {
-            if (register) {
+        Button(enabled = !isSignedIn || canRegister, onClick = {
+            if (isSignedIn) {
                 if (registrationForm(all = true)) {
                     auth.createAccount(
                         name, surname, login, email, password,
@@ -283,20 +284,12 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
                 auth.signIn(context, login, password)
             }
             auth.checkAuth()
-        }) { Text("Sign " + if (register) "up" else "in") }
-        if (!register) {
+        }) { Text("Sign " + if (isSignedIn) "up" else "in") }
+
+        if (!isSignedIn) {
             Text("or...")
-            Button(onClick = {
-                /* TODO("Google login") */
-            }) {
-                Image(
-                    painter = painterResource(id = R.drawable.google),
-                    contentDescription = "Google login",
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(Modifier.size(8.dp))
-                Text("Login with Google")
-            }
+            GoogleAuth(context,isSignedIn,navController)
+            Spacer(Modifier.height(8.dp))
             Button(onClick = {
                 /* TODO("Facebook login") */
             }) {
@@ -310,11 +303,11 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
             }
         }
         Row(modifier = Modifier.padding(all = 16.dp)) {
-            Text((if (register) "Already" else "Don't") + " have an account? ")
-            Text("Sign " + if (register) "in" else "up",
+            Text((if (isSignedIn) "Already" else "Don't") + " have an account? ")
+            Text("Sign " + if (isSignedIn) "in" else "up",
                 textDecoration = TextDecoration.Underline,
                 modifier = Modifier.clickable {
-                    register = !register
+                    isSignedIn = !isSignedIn
                 }
 
             )

@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui.main
+package dev.lisek.meetly.ui.homescreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
