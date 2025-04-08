@@ -25,7 +25,7 @@ class GoogleSignInClient(
 
     fun isSignedIn(): Boolean {
         if (firebaseAuth.currentUser != null) {
-            println(tag+ "User is signed in")
+            println(tag + "User is signed in")
             signInStatus = true
             return true
         }
@@ -50,6 +50,7 @@ class GoogleSignInClient(
         }
 
     }
+
     private suspend fun handleSingIn(result: GetCredentialResponse): Boolean {
         val credential = result.credential
 
@@ -97,7 +98,8 @@ class GoogleSignInClient(
             .build()
         return credentialManager.getCredential(
             request = request,
-            context = context)
+            context = context
+        )
 
 
     }
