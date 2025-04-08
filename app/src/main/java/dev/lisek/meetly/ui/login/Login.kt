@@ -1,5 +1,6 @@
 package dev.lisek.meetly.ui.login
 
+import android.annotation.SuppressLint
 import android.util.Patterns
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -59,6 +60,7 @@ import kotlin.text.Regex
  * @param [auth] authentication controller.
  * @param [pad] padding values.
  */
+@SuppressLint("SimpleDateFormat")
 @Composable
 fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: NavController) {
     val context = LocalContext.current

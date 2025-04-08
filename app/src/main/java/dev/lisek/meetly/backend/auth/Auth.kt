@@ -13,7 +13,7 @@ import java.util.Date
 
 /**
  * Collection of authentication methods.
- * 
+ *
  * @constructor Create empty Auth
  * @param [nav] navigation controller.
  */
@@ -24,7 +24,7 @@ class Auth(val nav: NavController) : ComponentActivity() {
 
     /**
      * Checks if the user is logged in.
-     * 
+     *
      * @return true if the user is logged in, false otherwise
      */
     fun isLogged(): Boolean {
@@ -44,7 +44,7 @@ class Auth(val nav: NavController) : ComponentActivity() {
 
     /**
      * Creates a user account.
-     * 
+     *
      * @param [name] user's name.
      * @param [surname] user's surname.
      * @param [login] user's login.
@@ -93,7 +93,7 @@ class Auth(val nav: NavController) : ComponentActivity() {
 
     /**
      * Signs in the user.
-     * 
+     *
      * @param [context] activity context.
      * @param [login] user's login.
      * @param [password] user's password.
@@ -108,7 +108,8 @@ class Auth(val nav: NavController) : ComponentActivity() {
                         checkAuth()
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(context, "Invalid e-mail or password", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Invalid e-mail or password", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
         } else {
@@ -118,7 +119,8 @@ class Auth(val nav: NavController) : ComponentActivity() {
                 .addOnSuccessListener { user ->
                     if (user.documents.isEmpty()) {
                         Log.w(TAG, "No user found with username: $login")
-                        Toast.makeText(context, "Username $login not found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Username $login not found", Toast.LENGTH_SHORT)
+                            .show()
                         return@addOnSuccessListener
                     }
                     val email = user.documents[0].getString("email") ?: "!"
