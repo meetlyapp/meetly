@@ -23,7 +23,7 @@ class GoogleSignInClient(
     private val credentialManager = CredentialManager.create(context)
     private val firebaseAuth = FirebaseAuth.getInstance()
 
-    fun isSignedIn(): Boolean {
+    private fun isSignedIn(): Boolean {
         if (firebaseAuth.currentUser != null) {
             println(tag + "User is signed in")
             signInStatus = true
