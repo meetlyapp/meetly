@@ -19,6 +19,7 @@ import kotlinx.coroutines.tasks.await
 import java.lang.Math.toRadians
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 import kotlin.math.cos
 
 /**
@@ -28,13 +29,23 @@ object FetchData {
     @SuppressLint("StaticFieldLeak")
     val db = FirebaseFirestore.getInstance()
 
-    suspend fun fetchLocation(context: Context, geo: Boolean = false): Map<String, Double> {
-        return if (geo) {
-            val location = getCurrentLocation(context)
-            location?.let {
-                mapOf("latitude" to it.latitude, "longitude" to it.longitude)
-            } ?: throw IllegalStateException("Location not found")
-
+    /**
+     * Fetch user's location.
+     * 
+     * @param [context] activity context.
+     * @param [geo] whether to use geolocation or not.
+     */
+    private suspend fun fetchLocation(context: Context, geo: Boolean = true): Map<String, Double> {
+        if (geo) {
+            return suspendCoroutine { cont -> getCurrentLocation(context) {
+                cont.resume(
+                    mapOf<String, Double>(
+                        "latitude" to it!!.latitude,
+                        "longitude" to it.longitude
+                    )
+                )
+            }}
+//            return loc
         } else {
             val db = Firebase.firestore
             val uid = FirebaseAuth.getInstance().uid ?: throw IllegalStateException("User not logged in")
