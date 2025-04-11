@@ -240,7 +240,7 @@ fun Settings(pad: PaddingValues) {
             Spacer(Modifier.width(48.dp))
         }
         Column(Modifier.padding(16.dp, 8.dp).verticalScroll(ScrollState(0))) {
-            ListCategory("Main panel", true) {
+            ListCategory("HomeScreen panel", true) {
                 mainPanel.PhoneEntry(meetings, "Meetings", 0.5f) {
                     Column {
                         Row(

@@ -23,7 +23,7 @@ import dev.lisek.meetly.ui.theme.MeetlyTheme
 import kotlin.random.Random
 
 /**
- * Main activity of the app.
+ * HomeScreen activity of the app.
  */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

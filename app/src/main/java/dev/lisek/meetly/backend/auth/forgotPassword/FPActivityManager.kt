@@ -25,7 +25,7 @@ class FPActivityManager {
      */
     fun sendResetLink(email: String, callback: (String) -> Unit) {
         db.collection("users")
-            .whereEqualTo("email", email) // Query Firestore for the email
+            .whereEqualTo("email", email)
             .get()
             .addOnSuccessListener { documents ->
                 if (!documents.isEmpty) {
