@@ -56,11 +56,11 @@ import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -86,7 +86,7 @@ import com.google.firebase.storage.storage
 import dev.lisek.meetly.R
 import dev.lisek.meetly.backend.category.Category
 import dev.lisek.meetly.backend.meeting.MeetingEntity
-import dev.lisek.meetly.ui.Navigation
+import dev.lisek.meetly.ui.sidebar.Navigation
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
@@ -233,7 +233,6 @@ private fun DatePickerModal(
  * @param [data] Meeting entity.
  * @param [create] True if creating a new meeting, false if the meeting already exists.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun MeetingPanel(

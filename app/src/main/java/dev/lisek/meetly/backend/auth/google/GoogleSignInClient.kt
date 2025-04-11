@@ -1,6 +1,9 @@
 package dev.lisek.meetly.backend.auth.google
 
+import Location
+import ProfileEntity
 import android.content.Context
+import android.util.Log
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
@@ -8,20 +11,24 @@ import androidx.credentials.GetCredentialResponse
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.cancellation.CancellationException
 
 
 class GoogleSignInClient(
     private val context: Context,
-    private var signInStatus: Boolean
-) {
+    private var signInStatus: Boolean,
+
+    ) {
     private val tag = "GoogleAuthClient: "
 
     private val credentialManager = CredentialManager.create(context)
     private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
     private fun isSignedIn(): Boolean {
         if (firebaseAuth.currentUser != null) {
@@ -63,15 +70,42 @@ class GoogleSignInClient(
 
                 val tokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
 
-                println(tag + "name: ${tokenCredential.displayName}")
-                println(tag + "email: ${tokenCredential.id}")
-                println(tag + "image: ${tokenCredential.profilePictureUri}")
-
                 val authCredential = GoogleAuthProvider.getCredential(
                     tokenCredential.idToken, null
                 )
                 val authResult = firebaseAuth.signInWithCredential(authCredential).await()
 
+
+                val user = authResult.user
+                if (user != null) {
+                    val userRef = firestore.collection("users").document(user.uid)
+
+                    val snapshot = userRef.get().await()
+                    if (!snapshot.exists()) {
+                        val profile = ProfileEntity(
+                            uid = user.uid,
+                            name = tokenCredential.givenName ?: "",
+                            surname = tokenCredential.familyName ?: "",
+                            email = tokenCredential.id,
+                            login = "",
+                            bio = "",
+                            dob = Timestamp.now(),
+                            location = Location(0.0, 0.0),
+                            friends = emptyList(),
+                            incomingFriends = emptyList(),
+                            outgoingFriends = emptyList()
+                        )
+
+                        userRef.set(profile).await()
+                        Log.d(tag, "New user profile saved to Firestore.")
+                    } else {
+                        Log.d(tag, "User already exists in Firestore.")
+                    }
+                }
+
+                println(tag + "name: ${tokenCredential.displayName}")
+                println(tag + "email: ${tokenCredential.id}")
+                println(tag + "image: ${tokenCredential.profilePictureUri}")
                 return authResult.user != null
 
             } catch (e: GoogleIdTokenParsingException) {

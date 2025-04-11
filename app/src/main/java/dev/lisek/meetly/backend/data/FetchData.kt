@@ -28,14 +28,13 @@ object FetchData {
     @SuppressLint("StaticFieldLeak")
     val db = FirebaseFirestore.getInstance()
 
-
     suspend fun fetchLocation(context: Context, geo: Boolean = false): Map<String, Double> {
         return if (geo) {
             val location = getCurrentLocation(context)
-            mapOf(
-                "latitude" to (location?.latitude ?: 0.0),
-                "longitude" to (location?.longitude ?: 0.0)
-            )
+            location?.let {
+                mapOf("latitude" to it.latitude, "longitude" to it.longitude)
+            } ?: throw IllegalStateException("Location not found")
+
         } else {
             val db = Firebase.firestore
             val uid = FirebaseAuth.getInstance().uid ?: throw IllegalStateException("User not logged in")

@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui
+package dev.lisek.meetly.ui.sidebar
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
@@ -65,6 +65,8 @@ import dev.lisek.meetly.ui.homescreen.MeetingPanel
 import dev.lisek.meetly.ui.profile.Profile
 import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.R
+import dev.lisek.meetly.ui.ListCategory
+import dev.lisek.meetly.ui.ListEntry
 import dev.lisek.meetly.ui.homescreen.MeetingEntry
 import dev.lisek.meetly.ui.theme.scriptFamily
 import kotlinx.coroutines.launch
