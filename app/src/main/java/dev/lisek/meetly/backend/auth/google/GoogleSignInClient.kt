@@ -18,18 +18,30 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.cancellation.CancellationException
 
-
+/**
+ * A client for handling Google Sign-In and Firebase Authentication.
+ *
+ * @param context The application context used for initializing the CredentialManager.
+ * @param signInStatus A mutable boolean indicating the current sign-in status.
+ */
 class GoogleSignInClient(
     private val context: Context,
     private var signInStatus: Boolean,
-
-    ) {
+) {
     private val tag = "GoogleAuthClient: "
 
+    // CredentialManager instance for managing credentials.
     private val credentialManager = CredentialManager.create(context)
+    // FirebaseAuth instance for handling Firebase Authentication.
     private val firebaseAuth = FirebaseAuth.getInstance()
+    // FirebaseFirestore instance for interacting with Firestore.
     private val firestore = FirebaseFirestore.getInstance()
 
+    /**
+     * Checks if the user is already signed in.
+     *
+     * @return `true` if the user is signed in, `false` otherwise.
+     */
     private fun isSignedIn(): Boolean {
         if (firebaseAuth.currentUser != null) {
             println(tag + "User is signed in")
@@ -39,6 +51,12 @@ class GoogleSignInClient(
         return false
     }
 
+    /**
+     * Initiates the Google Sign-In process.
+     *
+     * @return `true` if the sign-in was successful, `false` otherwise.
+     * @throws CancellationException if the coroutine is cancelled during the process.
+     */
     suspend fun signIn(): Boolean {
         if (isSignedIn()) {
             return true
@@ -46,18 +64,20 @@ class GoogleSignInClient(
         try {
             val result = buildCredentialRequest()
             return handleSingIn(result)
-
-
         } catch (e: Exception) {
-
             e.printStackTrace()
             if (e is CancellationException) throw e
             println(tag + "Failed to sign in with Google: " + e.message)
             return false
         }
-
     }
 
+    /**
+     * Handles the sign-in process using the provided credential response.
+     *
+     * @param result The credential response obtained from the CredentialManager.
+     * @return `true` if the sign-in was successful, `false` otherwise.
+     */
     private suspend fun handleSingIn(result: GetCredentialResponse): Boolean {
         val credential = result.credential
 
@@ -65,16 +85,13 @@ class GoogleSignInClient(
             credential is CustomCredential &&
             credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
         ) {
-
             try {
-
                 val tokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
 
                 val authCredential = GoogleAuthProvider.getCredential(
                     tokenCredential.idToken, null
                 )
                 val authResult = firebaseAuth.signInWithCredential(authCredential).await()
-
 
                 val user = authResult.user
                 if (user != null) {
@@ -112,14 +129,17 @@ class GoogleSignInClient(
                 println(tag + "GoogleIdTokenParsingException: ${e.message}")
                 return false
             }
-
         } else {
             println(tag + "credential is not GoogleIdTokenCredential")
             return false
         }
-
     }
 
+    /**
+     * Builds a credential request for Google Sign-In.
+     *
+     * @return The credential response obtained from the CredentialManager.
+     */
     private suspend fun buildCredentialRequest(): GetCredentialResponse {
         val request = GetCredentialRequest.Builder()
             .addCredentialOption(
@@ -134,7 +154,5 @@ class GoogleSignInClient(
             request = request,
             context = context
         )
-
-
     }
 }
