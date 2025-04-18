@@ -1,4 +1,4 @@
-package dev.lisek.meetly.backend.category
+package dev.lisek.meetly.backend.util
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

@@ -17,7 +17,7 @@ import com.google.firebase.auth.auth
 import dev.lisek.meetly.backend.auth.Auth
 import dev.lisek.meetly.backend.data.FetchData
 import dev.lisek.meetly.ui.RequestNotificationPermission
-import dev.lisek.meetly.ui.navigation.MeetlyNavigation
+import dev.lisek.meetly.ui.navigation.controllers.MeetlyNavigation
 import dev.lisek.meetly.ui.showNotification
 import dev.lisek.meetly.ui.theme.MeetlyTheme
 import kotlin.random.Random

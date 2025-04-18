@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui.sidebar
+package dev.lisek.meetly.ui.navigation
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable

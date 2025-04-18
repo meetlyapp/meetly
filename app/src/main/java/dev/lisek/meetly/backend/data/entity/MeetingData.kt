@@ -1,4 +1,4 @@
-package dev.lisek.meetly.backend.meeting
+package dev.lisek.meetly.backend.data.entity
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,8 +9,7 @@ import androidx.compose.runtime.setValue
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.storage
-import dev.lisek.meetly.backend.category.Category
-import dev.lisek.meetly.backend.profile.ProfileEntity
+import dev.lisek.meetly.backend.util.Category
 import dev.lisek.meetly.backend.geo.Locatable
 import dev.lisek.meetly.ui.homescreen.Visibility
 import dev.lisek.meetly.ui.profile.Profile

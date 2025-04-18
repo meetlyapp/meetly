@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui.auth.googleAuth
+package dev.lisek.meetly.ui.auth.buttons
 
 import android.content.Context
 import androidx.compose.foundation.Image

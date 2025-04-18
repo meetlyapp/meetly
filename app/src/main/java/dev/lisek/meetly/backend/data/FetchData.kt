@@ -13,7 +13,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
-import dev.lisek.meetly.backend.meeting.MeetingEntity
+import dev.lisek.meetly.backend.data.entity.MeetingEntity
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 import java.lang.Math.toRadians

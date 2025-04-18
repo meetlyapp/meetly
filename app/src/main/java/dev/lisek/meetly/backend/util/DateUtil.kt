@@ -1,4 +1,4 @@
-package dev.lisek.meetly.backend
+package dev.lisek.meetly.backend.util
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
