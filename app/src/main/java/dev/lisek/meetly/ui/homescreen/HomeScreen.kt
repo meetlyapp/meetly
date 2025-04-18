@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng
 import dev.lisek.meetly.backend.data.FetchData
 import dev.lisek.meetly.backend.category.Category
 import dev.lisek.meetly.backend.geo.Geolocation.UserLocation
+import dev.lisek.meetly.backend.geo.Geolocation.getAddressFromLatLng
 import dev.lisek.meetly.backend.meeting.MeetingEntity
 
 /**
