@@ -289,7 +289,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
 
         if (!isSignedIn) {
             Text("or...")
-            GoogleAuth(context,isSignedIn,navController)
+            GoogleAuth(context, isSignedIn, navController)
 
             Spacer(Modifier.height(8.dp))
             Button(onClick = {
