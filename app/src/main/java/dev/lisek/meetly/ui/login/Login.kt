@@ -281,7 +281,7 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
                         "Password must be at least 8 characters long and contain small and big letters, a digit and a special sign",
                         Toast.LENGTH_SHORT
                     ).show()
-            } else {
+            } else if (!login.isEmpty() && !password.isEmpty()) {
                 auth.signIn(context, login, password)
             }
             auth.checkAuth()

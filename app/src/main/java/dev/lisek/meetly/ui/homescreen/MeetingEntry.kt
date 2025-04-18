@@ -104,7 +104,7 @@ object MeetingEntry {
                         .aspectRatio(2f)
                 ) {
                     AsyncImage(
-                        model = data.image,
+                        model = it.image,
                         contentDescription = "Meeting image",
                         placeholder = painterResource(R.drawable.landscape),
                         error = painterResource(R.drawable.landscape),
