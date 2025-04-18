@@ -97,7 +97,6 @@ fun HomeScreen(pad: PaddingValues = PaddingValues(0.dp)) {
             .fillMaxWidth()
             .padding(16.dp),
             shape = RoundedCornerShape(50),
-//            .clickable(onClick = { Navigation.navigate("search") })
             placeholder = {
                 Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween) {
                     Text("What are you up to?")

@@ -86,7 +86,6 @@ fun Login(auth: Auth, pad: PaddingValues = PaddingValues(0.dp), navController: N
 
     var emailTaken by remember { mutableStateOf(false) }
     var loginTaken by remember { mutableStateOf(false) }
-
     fun registrationForm(
         all: Boolean = false,
         checkName: Boolean = false,

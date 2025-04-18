@@ -107,7 +107,7 @@ class GoogleSignInClient(
                             login = "",
                             bio = "",
                             dob = Timestamp.now(),
-                            location = Location(0.0, 0.0),
+                            location = Location( 37.4226711, -122.0849872),
                             friends = emptyList(),
                             incomingFriends = emptyList(),
                             outgoingFriends = emptyList()

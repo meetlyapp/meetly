@@ -1,5 +1,6 @@
 package dev.lisek.meetly.backend.auth
 
+import ProfileEntity
 import android.content.Context
 import android.util.Log
 import android.util.Patterns
@@ -36,7 +37,7 @@ class Auth(val nav: NavController) : ComponentActivity() {
      */
     fun checkAuth() {
         if (isLogged()) {
-            nav.navigate("app") {
+            nav.navigate("homeScreen") {
                 popUpTo("login") { inclusive = true }
             }
         }
@@ -62,19 +63,18 @@ class Auth(val nav: NavController) : ComponentActivity() {
         dob: Date,
         onFailure: () -> Unit
     ) {
-        auth.signOut()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
-                    val data = hashMapOf(
-                        "name" to name,
-                        "surname" to surname,
-                        "login" to login,
-                        "email" to email,
-                        "dob" to Timestamp(dob),
-                        "location" to hashMapOf("latitude" to 0, "longitude" to 0),
-                        "meetings" to emptyList<Any>()
+                    val data = ProfileEntity(
+                        uid = uid,
+                        name = name,
+                        surname = surname,
+                        email = email,
+                        login = login,
+                        bio = "",
+                        dob = Timestamp(dob)
                     )
                     db.collection("users")
                         .document(uid)
