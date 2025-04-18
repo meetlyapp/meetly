@@ -37,9 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import dev.lisek.meetly.R
-import dev.lisek.meetly.backend.meeting.MeetingEntity
-import dev.lisek.meetly.backend.meeting.MeetingWrapper
-import dev.lisek.meetly.ui.sidebar.Navigation
+import dev.lisek.meetly.backend.data.entity.MeetingEntity
+import dev.lisek.meetly.backend.data.entity.MeetingWrapper
+import dev.lisek.meetly.ui.navigation.Navigation
 import java.text.SimpleDateFormat
 
 /**

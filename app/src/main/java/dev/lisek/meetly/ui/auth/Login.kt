@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui.login
+package dev.lisek.meetly.ui.auth
 
 import android.annotation.SuppressLint
 import android.util.Patterns
@@ -47,8 +47,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.lisek.meetly.R
 import dev.lisek.meetly.backend.auth.Auth
-import dev.lisek.meetly.backend.correctDate
-import dev.lisek.meetly.ui.auth.googleAuth.GoogleAuth
+import dev.lisek.meetly.backend.util.correctDate
+import dev.lisek.meetly.ui.auth.buttons.GoogleAuth
 import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.ui.theme.scriptFamily
 import java.text.SimpleDateFormat

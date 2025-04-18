@@ -1,4 +1,4 @@
-package dev.lisek.meetly.backend.profile
+package dev.lisek.meetly.backend.data.entity
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
