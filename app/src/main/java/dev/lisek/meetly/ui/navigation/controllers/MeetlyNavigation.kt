@@ -35,9 +35,5 @@ fun MeetlyNavigation(
         composable("settings") {
             Settings(pad)
         }
-        composable("homeScreen"){
-            HomeScreen(pad)
-
-        }
     }
 }

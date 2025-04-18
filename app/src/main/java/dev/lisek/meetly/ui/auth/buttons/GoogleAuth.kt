@@ -26,8 +26,9 @@ fun GoogleAuth(context: Context, isSignedIn: Boolean, navController: NavControll
 
     Button(onClick = {
         coroutineScope.launch {
-            googleSignInClient.signIn()
-            navController.navigate("homeScreen")
+            googleSignInClient.signIn {
+                navController.navigate("app")
+            }
         }
     }) {
         Image(

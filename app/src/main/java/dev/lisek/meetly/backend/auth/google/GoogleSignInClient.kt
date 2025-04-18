@@ -57,18 +57,18 @@ class GoogleSignInClient(
      * @return `true` if the sign-in was successful, `false` otherwise.
      * @throws CancellationException if the coroutine is cancelled during the process.
      */
-    suspend fun signIn(): Boolean {
+    suspend fun signIn(onLogin: () -> Unit) {
         if (isSignedIn()) {
-            return true
+            onLogin()
         }
         try {
-            val result = buildCredentialRequest()
-            return handleSingIn(result)
+            if (handleSignIn(buildCredentialRequest())) {
+                onLogin()
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             if (e is CancellationException) throw e
             println(tag + "Failed to sign in with Google: " + e.message)
-            return false
         }
     }
 
@@ -78,7 +78,7 @@ class GoogleSignInClient(
      * @param result The credential response obtained from the CredentialManager.
      * @return `true` if the sign-in was successful, `false` otherwise.
      */
-    private suspend fun handleSingIn(result: GetCredentialResponse): Boolean {
+    private suspend fun handleSignIn(result: GetCredentialResponse): Boolean {
         val credential = result.credential
 
         if (
@@ -107,7 +107,7 @@ class GoogleSignInClient(
                             login = "",
                             bio = "",
                             dob = Timestamp.now(),
-                            location = Location( 37.4226711, -122.0849872),
+                            location = Location(.0, .0),
                             friends = emptyList(),
                             incomingFriends = emptyList(),
                             outgoingFriends = emptyList()
