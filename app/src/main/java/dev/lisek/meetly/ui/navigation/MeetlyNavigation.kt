@@ -9,8 +9,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.lisek.meetly.backend.auth.Auth
 import dev.lisek.meetly.ui.login.Login
-import dev.lisek.meetly.ui.Overlay
+import dev.lisek.meetly.ui.sidebar.Overlay
 import dev.lisek.meetly.ui.Settings
+import dev.lisek.meetly.ui.homescreen.HomeScreen
+
 @Composable
 fun MeetlyNavigation(
     modifier: Modifier = Modifier,
@@ -33,6 +35,10 @@ fun MeetlyNavigation(
         }
         composable("settings") {
             Settings(pad)
+        }
+        composable("homeScreen"){
+            HomeScreen(pad)
+
         }
     }
 }

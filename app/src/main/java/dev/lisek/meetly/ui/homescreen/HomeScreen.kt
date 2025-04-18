@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui.main
+package dev.lisek.meetly.ui.homescreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,14 +43,14 @@ import dev.lisek.meetly.backend.category.Category
 import dev.lisek.meetly.backend.meeting.MeetingEntity
 
 /**
- * Main screen of the app - collective meetings.
+ * HomeScreen screen of the app - collective meetings.
  * 
  * @property [pad] padding values
  * 
  * @see [MeetingEntry]
  */
 @Composable
-fun Main(pad: PaddingValues = PaddingValues(0.dp)) {
+fun HomeScreen(pad: PaddingValues = PaddingValues(0.dp)) {
     var radius by remember { mutableIntStateOf(5) }
     var radiusDropdown by remember { mutableStateOf(false) }
     var refresher by remember { mutableStateOf(false) }
@@ -97,7 +97,6 @@ fun Main(pad: PaddingValues = PaddingValues(0.dp)) {
             .fillMaxWidth()
             .padding(16.dp),
             shape = RoundedCornerShape(50),
-//            .clickable(onClick = { Navigation.navigate("search") })
             placeholder = {
                 Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween) {
                     Text("What are you up to?")
@@ -126,5 +125,5 @@ fun Main(pad: PaddingValues = PaddingValues(0.dp)) {
 @Preview(showBackground = true)
 @Composable
 fun Preview() {
-    Main()
+    HomeScreen()
 }

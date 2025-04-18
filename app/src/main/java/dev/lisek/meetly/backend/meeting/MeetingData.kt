@@ -12,7 +12,7 @@ import com.google.firebase.storage.storage
 import dev.lisek.meetly.backend.category.Category
 import dev.lisek.meetly.backend.profile.ProfileEntity
 import dev.lisek.meetly.backend.geo.Locatable
-import dev.lisek.meetly.ui.main.Visibility
+import dev.lisek.meetly.ui.homescreen.Visibility
 import dev.lisek.meetly.ui.profile.Profile
 import java.util.Date
 
