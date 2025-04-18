@@ -60,14 +60,14 @@ import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import dev.lisek.meetly.ui.homescreen.HomeScreen
-import dev.lisek.meetly.ui.homescreen.MeetingPanel
-import dev.lisek.meetly.ui.profile.Profile
-import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.R
 import dev.lisek.meetly.ui.ListCategory
 import dev.lisek.meetly.ui.ListEntry
+import dev.lisek.meetly.ui.homescreen.HomeScreen
 import dev.lisek.meetly.ui.homescreen.MeetingEntry
+import dev.lisek.meetly.ui.homescreen.MeetingPanel
+import dev.lisek.meetly.ui.profile.Profile
+import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.ui.theme.scriptFamily
 import kotlinx.coroutines.launch
 
@@ -231,13 +231,11 @@ fun Overlay(parent: NavController) {
                         ) ?: return@composable, false
                     )
                 }
-//                composable("ftf") { FaceToFace(innerPadding) }
                 composable(
                     "profile/{uid}"
                 ) { arg ->
                     Profile.FromUID(arg.arguments?.getString("uid")!!)
                 }
-//                composable("chatlist") { ChatSpace(innerPadding) }
                 composable("create") { MeetingPanel() }
             }
             IconButton(onClick = {
