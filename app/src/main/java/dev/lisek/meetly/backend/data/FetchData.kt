@@ -12,6 +12,7 @@ import com.google.android.gms.location.Priority
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import dev.lisek.meetly.backend.geo.Geolocation.getCurrentLocation
 import com.google.firebase.firestore.firestore
 import dev.lisek.meetly.backend.meeting.MeetingEntity
 import kotlinx.coroutines.suspendCancellableCoroutine

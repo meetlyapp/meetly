@@ -60,6 +60,7 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberMarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import dev.lisek.meetly.backend.geo.Geolocation.getAddressFromLatLng
 import dev.lisek.meetly.backend.geo.Geolocation.getPermission
 import java.io.IOException
 import java.util.Locale
@@ -166,49 +167,6 @@ fun PlacesAutoCompleteTextField(onPlaceSelected: (LatLng) -> Unit) {
                 )
             }
         }
-    }
-}
-
-/**
- * Get user's current location.
- * 
- * @param [context] activity context.
- * @param [onLocationRetrieved] Callback to return the location.
- */
-fun getCurrentLocation(
-    context: Context,
-    onLocationRetrieved: (LatLng?) -> Unit
-) {
-    val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-    val permission = ContextCompat.checkSelfPermission(
-        context, Manifest.permission.ACCESS_FINE_LOCATION
-    ) == PackageManager.PERMISSION_GRANTED
-
-    if (!permission) {
-        onLocationRetrieved(null)
-    }
-    fusedLocationClient.lastLocation
-        .addOnSuccessListener { location: Location? ->
-            onLocationRetrieved(location?.let { LatLng(it.latitude, it.longitude) })
-        }
-        .addOnFailureListener {
-            onLocationRetrieved(null)
-        }
-}
-
-/**
- * Get user's address from coordinates.
- * 
- * @param [context] activity context.
- * @param [latLng] user coordinates.
- */
-fun getAddressFromLatLng(context: Context, latLng: LatLng): String {
-    val geocoder = Geocoder(context, Locale.getDefault())
-    return try {
-        val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-        addresses?.firstOrNull()?.getAddressLine(0) ?: "Unknown location"
-    } catch (e: IOException) {
-        "Error: ${e.localizedMessage}"
     }
 }
 
