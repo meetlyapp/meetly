@@ -17,7 +17,7 @@ import dev.lisek.meetly.backend.auth.forgotPassword.PasswordResetModel
  * @param navController Navigation controller to handle navigation actions.
  */
 @Composable
-fun ResetPasswordScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun ResetPasswordScreen(navController: NavHostController) {
     var email by remember { mutableStateOf(TextFieldValue("")) }
     var isSuccess by remember { mutableStateOf<Boolean?>(null) }
     val context = LocalContext.current

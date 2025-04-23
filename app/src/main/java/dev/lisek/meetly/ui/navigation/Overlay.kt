@@ -66,6 +66,7 @@ import dev.lisek.meetly.ui.ListEntry
 import dev.lisek.meetly.ui.homescreen.HomeScreen
 import dev.lisek.meetly.ui.homescreen.MeetingEntry
 import dev.lisek.meetly.ui.homescreen.MeetingPanel
+import dev.lisek.meetly.ui.navigation.controllers.PanelNavigation
 import dev.lisek.meetly.ui.profile.Profile
 import dev.lisek.meetly.ui.theme.DarkOrange
 import dev.lisek.meetly.ui.theme.scriptFamily
@@ -220,24 +221,7 @@ fun Overlay(parent: NavController) {
                 )
             }
         ) { innerPadding ->
-            NavHost(nav, "main") {
-                composable("main") { HomeScreen(innerPadding) }
-                composable(
-                    "meeting/{id}"
-                ) { arg ->
-                    MeetingPanel(
-                        MeetingEntry.getEntity(
-                            arg.arguments?.getString("id")!!
-                        ) ?: return@composable, false
-                    )
-                }
-                composable(
-                    "profile/{uid}"
-                ) { arg ->
-                    Profile.FromUID(arg.arguments?.getString("uid")!!)
-                }
-                composable("create") { MeetingPanel() }
-            }
+            PanelNavigation(nav, innerPadding)
             IconButton(onClick = {
                 scope.launch {
                     if (drawerState.isClosed) {

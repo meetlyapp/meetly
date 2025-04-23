@@ -37,7 +37,7 @@ class Auth(val nav: NavController) : ComponentActivity() {
      */
     fun checkAuth() {
         if (isLogged()) {
-            nav.navigate("homeScreen") {
+            nav.navigate("app") {
                 popUpTo("login") { inclusive = true }
             }
         }
