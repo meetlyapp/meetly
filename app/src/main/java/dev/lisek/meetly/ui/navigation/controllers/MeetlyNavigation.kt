@@ -1,4 +1,4 @@
-package dev.lisek.meetly.ui.navigation
+package dev.lisek.meetly.ui.navigation.controllers
 
 import ResetPasswordScreen
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,10 +8,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.lisek.meetly.backend.auth.Auth
-import dev.lisek.meetly.ui.login.Login
-import dev.lisek.meetly.ui.sidebar.Overlay
+import dev.lisek.meetly.ui.auth.Login
 import dev.lisek.meetly.ui.Settings
-import dev.lisek.meetly.ui.homescreen.HomeScreen
+import dev.lisek.meetly.ui.navigation.Overlay
 
 @Composable
 fun MeetlyNavigation(

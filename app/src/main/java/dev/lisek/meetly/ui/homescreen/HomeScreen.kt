@@ -39,8 +39,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.model.LatLng
 import dev.lisek.meetly.backend.data.FetchData
-import dev.lisek.meetly.backend.category.Category
-import dev.lisek.meetly.backend.meeting.MeetingEntity
+import dev.lisek.meetly.backend.util.Category
+import dev.lisek.meetly.backend.data.entity.MeetingEntity
 
 /**
  * HomeScreen screen of the app - collective meetings.
