@@ -14,17 +14,16 @@ import dev.lisek.meetly.ui.navigation.Overlay
 
 @Composable
 fun MeetlyNavigation(
-    modifier: Modifier = Modifier,
     navController: NavHostController,
     auth: Auth,
-    pad:PaddingValues
+    pad: PaddingValues
 ) {
     NavHost(
         navController = navController,
         startDestination = if (auth.isLogged()) "app" else "login",
     ) {
         composable("resetScreen") {
-            ResetPasswordScreen(modifier, navController)
+            ResetPasswordScreen(navController)
         }
         composable("login") {
             Login(auth, pad, navController)
