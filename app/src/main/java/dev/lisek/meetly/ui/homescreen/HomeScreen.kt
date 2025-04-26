@@ -1,5 +1,7 @@
 package dev.lisek.meetly.ui.homescreen
 
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,7 +24,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MultiChoiceSegmentedButtonRow
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonColors
+import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -34,6 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,6 +48,8 @@ import com.google.android.gms.maps.model.LatLng
 import dev.lisek.meetly.backend.data.FetchData
 import dev.lisek.meetly.backend.util.Category
 import dev.lisek.meetly.backend.data.entity.MeetingEntity
+import dev.lisek.meetly.ui.theme.DarkOrange
+import dev.lisek.meetly.ui.theme.LightOrange
 
 /**
  * HomeScreen screen of the app - collective meetings.
@@ -106,12 +115,25 @@ fun HomeScreen(pad: PaddingValues = PaddingValues(0.dp)) {
         )
         LazyColumn(Modifier.weight(1f)) {
             item {
-                LazyRow {
-                    items(Category.entries) {
-                        Button({},
-                            Modifier.padding(4.dp),
-                            colors = ButtonDefaults.buttonColors(it.color, it.textColor)
-                        ) { Text(it.string) }
+                MultiChoiceSegmentedButtonRow(Modifier.horizontalScroll(ScrollState(0))) {
+                    for (category in Category.entries) {
+                        SegmentedButton(
+                            true,
+                            {},
+                            RoundedCornerShape(100),
+                            Modifier.padding(4.dp, 0.dp),
+                            true,
+                            SegmentedButtonDefaults.colors(LightOrange, Color.Black, DarkOrange),
+                            icon = { Icon(category.icon, null) }
+                        ) {
+                            Text(category.text)
+                        }
+//                LazyRow {
+//                    items(Category.entries) {
+//                        Button({},
+//                            Modifier.padding(4.dp),
+//                            colors = ButtonDefaults.buttonColors(it.color, it.textColor)
+//                        ) { Text(it.string) }
                     }
                 }
             }

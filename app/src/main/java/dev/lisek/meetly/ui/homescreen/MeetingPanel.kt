@@ -347,12 +347,12 @@ fun MeetingPanel(
                                 .width(48.dp)
                                 .height(28.dp)
                                 .padding(end = 8.dp)
-                                .clip(RoundedCornerShape(50))
-                                .background(it.color),
+                                .clip(RoundedCornerShape(50)),
+//                                .background(it.color),
                             Arrangement.Center,
                             Alignment.CenterVertically
                         ) {
-                            Text(it.emoji, color = MaterialTheme.colorScheme.onPrimary)
+                            Icon(it.icon, null)
                         }
                     }
                 }
@@ -408,7 +408,7 @@ fun MeetingPanel(
                 Box {
                     Box {
                         TextField(
-                            category.joinToString("\n") { it.string },
+                            category.joinToString("\n") { it.text },
                             { },
                             Modifier.fillMaxWidth(),
                             label = { Text("Categories") },
@@ -422,7 +422,7 @@ fun MeetingPanel(
                     }
                     DropdownMenu(categoryMenu, { categoryMenu = false }) {
                         for (item in Category.entries) {
-                            DropdownMenuItem({ Text(item.string) }, {
+                            DropdownMenuItem({ Text(item.text) }, {
                                 if (item in category) {
                                     category.remove(item)
                                 } else if (category.size < 3) {
