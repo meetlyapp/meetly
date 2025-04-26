@@ -1,5 +1,7 @@
 package dev.lisek.meetly.ui.homescreen
 
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,17 +13,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MultiChoiceSegmentedButtonRow
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng
 import dev.lisek.meetly.backend.data.FetchData
 import dev.lisek.meetly.backend.util.Category
 import dev.lisek.meetly.backend.data.entity.MeetingEntity
+import dev.lisek.meetly.ui.CategoryButton
 
 /**
  * HomeScreen screen of the app - collective meetings.
@@ -56,14 +57,15 @@ fun HomeScreen(pad: PaddingValues = PaddingValues(0.dp)) {
     var refresher by remember { mutableStateOf(false) }
     var posts by remember { mutableStateOf(emptyList<MeetingEntity>()) }
     var location by remember { mutableStateOf("") }
+    var categories by remember { mutableStateOf(emptySet<String>()) }
     val context = LocalContext.current
 
     getCurrentLocation(context) {
         location = getAddressFromLatLng(context, it ?: LatLng(.0, .0)).split(",")[0]
     }
 
-    LaunchedEffect(refresher) {
-        posts = FetchData.fetchMeetings(context, radius)
+    LaunchedEffect(refresher, categories) {
+        posts = FetchData.fetchMeetings(context, radius, categories)
     }
 
     Column(modifier = Modifier.fillMaxSize().padding(pad)) {
@@ -104,17 +106,18 @@ fun HomeScreen(pad: PaddingValues = PaddingValues(0.dp)) {
                 }
             },
         )
-        LazyColumn(Modifier.weight(1f)) {
-            item {
-                LazyRow {
-                    items(Category.entries) {
-                        Button({},
-                            Modifier.padding(4.dp),
-                            colors = ButtonDefaults.buttonColors(it.color, it.textColor)
-                        ) { Text(it.string) }
+        MultiChoiceSegmentedButtonRow(Modifier.horizontalScroll(ScrollState(0))) {
+            for (category in Category.entries) {
+                CategoryButton(category) {
+                    if (it) {
+                        categories += category.name
+                    } else {
+                        categories -= category.name
                     }
                 }
             }
+        }
+        LazyColumn(Modifier.weight(1f)) {
             items(posts) {
                 MeetingEntry.FromEntity(it)
             }

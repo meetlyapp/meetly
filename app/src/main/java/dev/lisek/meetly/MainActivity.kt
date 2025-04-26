@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                 context,
                 "New meetings",
                 "Buckle up! There are ${
-                    FetchData.fetchMeetings(context, Random.nextInt(5, 15)).size
+                    FetchData.fetchMeetings(context, Random.nextInt(5, 15), emptySet()).size
                 } meetings near you. \uD83D\uDC6F"
             )
         }

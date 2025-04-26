@@ -75,17 +75,26 @@ object FetchData {
      * @param [context] activity context.
      * @param [radius] radius (in kilometers).
      */
-    suspend fun fetchMeetings(context: Context, radius: Int): List<MeetingEntity> {
+    suspend fun fetchMeetings(
+        context: Context,
+        radius: Int,
+        categories: Set<String>
+    ): List<MeetingEntity> {
         val location = fetchLocation(context)
         val lat = location["latitude"] ?: .0
         val lon = location["longitude"] ?: .0
 
-        val meetings = db.collection("posts")
+        var query = db.collection("posts")
             .whereLessThan("location.latitude", lat + radius/111.0)
             .whereLessThan("location.longitude", lon + radius/(111.0 / cos(toRadians(lat))))
             .whereGreaterThan("location.latitude", lat - radius/111.0)
             .whereGreaterThan("location.longitude", lon - radius/(111.0 / cos(toRadians(lat))))
-            .get().await()
+
+        if (!categories.isEmpty()) {
+            query = query.whereArrayContainsAny("categories", categories.toList())
+        }
+
+        val meetings = query.get().await()
 
         val meets = meetings.documents.map {
             val meet = it.toObject(MeetingEntity::class.java)
