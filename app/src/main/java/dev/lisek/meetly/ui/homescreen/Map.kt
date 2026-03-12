@@ -101,11 +101,11 @@ fun getPlaceDetails(
     placeId: String,
     callback: (LatLng) -> Unit
 ) {
-    val request = FetchPlaceRequest.builder(placeId, listOf(Place.Field.LAT_LNG)).build()
+    val request = FetchPlaceRequest.builder(placeId, listOf(Place.Field.LOCATION)).build()
 
     placesClient.fetchPlace(request)
         .addOnSuccessListener { response ->
-            val latLng = response.place.latLng
+            val latLng = response.place.location
             if (latLng != null) {
                 callback(latLng)
             }

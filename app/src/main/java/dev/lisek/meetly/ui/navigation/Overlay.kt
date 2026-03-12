@@ -162,7 +162,7 @@ fun Overlay(parent: NavController) {
                     ) {
                         Text(
                             "meetly", Modifier,
-                            DarkOrange, 32.sp,
+                            DarkOrange, fontSize = 32.sp,
                             fontFamily = scriptFamily
                         )
                         HorizontalDivider(Modifier.padding(8.dp))
