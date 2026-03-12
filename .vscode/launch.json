@@ -1,0 +1,63 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Android app",
+            "type": "android",
+            "request": "launch",
+            "preLaunchTask": "buildDebug",
+            "appSrcRoot": "${workspaceFolder}/app/src/main",
+            "manifestFile": "${workspaceFolder}/app/src/main/AndroidManifest.xml",
+            "apkFile": "${workspaceFolder}/app/build/outputs/apk/debug/app-debug.apk",
+            "amStartArgs": [
+                "--activity-brought-to-front",
+                "-a",
+                "android.intent.action.MAIN",
+                "-c",
+                "android.intent.category.LAUNCHER",
+                "-n",
+                "dev.lisek.meetly/dev.lisek.meetly.MainActivity"
+            ],
+            "pmInstallArgs": [
+                "-r",
+                "-t"
+            ],
+            "postLaunchPause": 2000,
+            "trace": true
+        },
+        {
+            "name": "Debug Android app",
+            "type": "android",
+            "request": "launch",
+            "preLaunchTask": "buildDebug",
+            "appSrcRoot": "${workspaceFolder}/app/src/main",
+            "manifestFile": "${workspaceFolder}/app/src/main/AndroidManifest.xml",
+            "apkFile": "${workspaceFolder}/app/build/outputs/apk/debug/app-debug.apk",
+            "pmInstallArgs": [
+                "-r",
+                "-t"
+            ],
+            "amStartArgs": [
+                "-D",
+                "--activity-brought-to-front",
+                "-a",
+                "android.intent.action.MAIN",
+                "-c",
+                "android.intent.category.LAUNCHER",
+                "-n",
+                "dev.lisek.meetly/dev.lisek.meetly.MainActivity"
+            ],
+            "postLaunchPause": 2000,
+            "trace": true
+        },
+        {
+            "name": "Attach ADB debugger",
+            "type": "android",
+            "request": "attach",
+            "preLaunchTask": "Prepare for Attach - Get JDWP PID",
+            "appSrcRoot": "${workspaceFolder}/app/src/main",
+            "processId": "${command:PickAndroidProcess}",
+            "trace": true
+        }
+    ]
+}

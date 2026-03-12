@@ -1,0 +1,77 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "buildDebug",
+            "type": "shell",
+            "command": "./gradlew",
+            "args": [
+                "assembleDebug",
+                "--console=plain"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$gradle"
+        },
+        {
+            "label": "startEmulator",
+            "type": "shell",
+            "command": "${env:ANDROID_HOME}/emulator/emulator",
+            "args": [
+                "-avd",
+                "${input:avdName}"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "isBackground": true
+        },
+        {
+            "label": "Show Meetly PID",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "${workspaceFolder}/.vscode/scripts/show-meetly-pid.sh"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Prepare for Attach - Get JDWP PID",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "${workspaceFolder}/.vscode/scripts/get-jdwp-pid.sh"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "avdName",
+            "description": "Android Virtual Device name",
+            "type": "promptString",
+            "default": "Pixel_6_API_36"
+        }
+    ]
+}
